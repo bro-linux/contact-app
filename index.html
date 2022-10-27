@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Contact App</title>
+</head>
+
+<body>
+    <div id='content'></div>
+
+    <script type="text/babel">
+
+        let CONTACTS = [
+            {
+                id:1,
+                name: 'Anvar',
+                phoneNumber: '+998931117788',
+                image: 'https://i.pinimg.com/originals/4e/62/17/4e6217d63da404c271788f92e96d7fe1.gif'            
+            },{
+                id: 2,
+                name: 'Bonu',
+                phoneNumber: '+998991234567',
+                image:'https://odkurzacze.info/img/uzna-2018/klava-koka-biografiya-novosti-foto-7.jpg'         
+            }, {
+                id: 3,
+                name: 'Bunyod',
+                phoneNumber: '+998971234567',
+                image: 'https://thumbs.gfycat.com/ShimmeringDizzyDwarfrabbit-size_restricted.gif'
+            }, {
+                id: 4,
+                name: 'Madina',
+                phoneNumber: '+998931234567',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlan5WCt_G3YngXIKfTicu6RQnQ3GnCrSawYS2vFZmcOHYeD6WuzRqueuItFfj1zL-y4k&usqp=CAU'
+            }, {
+                id: 5,
+                name: 'Farrux',
+                phoneNumber: '+998941234567',
+                image: 'https://www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif'
+            },{
+                id:6,
+                name: 'Feruz',
+                phoneNumber: '+998990071234',
+                image: 'https://images.ctfassets.net/co0pvta7hzrh/2P0gEZfj9V1OJOHgkzK5Qw/a81ea0f954396bf4d86f617314e69ee6/Typeform-Blog-Gifs-Inline03.gif'
+            },,{
+                id:7,
+                name: 'Fazilat',
+                phoneNumber: '+998990012131',
+                image: 'http://media2.giphy.com/media/cYYx0b3DcYwOA/giphy.gif'
+            }
+        ];
+
+        let Contact = React.createClass({
+            render:function() {
+                return (
+                    <li className="contact">
+                        <img className="contact-image" src={this.props.image} width="60px" height="60px" />
+                        <div class="contact-info">
+                            <div className="contact-name">{this.props.name}</div>
+                            <div className="contact-number">{this.props.phoneNumber}</div>    
+                        </div>
+                    </li>
+                );
+            }
+        })
+
+        let ContactList = React.createClass({
+            getInitialState: function(){
+                return {
+                    displayedContacts: CONTACTS
+                };
+            },
+
+            handleSearch: function(event){
+                let querySearch = event.target.value.toLowerCase();
+                let displayedContacts = CONTACTS.filter(function(el){
+                    let searchValue = el.name.toLowerCase();
+                    return searchValue.indexOf(querySearch) !== -1;
+                });
+
+                this.setState({
+                    displayedContacts: displayedContacts
+                })
+            },
+
+            render: function() {
+                return (
+                    <div className="contacts mt">
+                        <input type="text" className="search-field" placeholder="Search Contact..." onChange={this.handleSearch} />
+
+                        <ul className="contacts-list">
+                            {
+                                this.state.displayedContacts.map(function(el) {
+                                    return <Contact
+                                    key={el.key} 
+                                    name={el.name}
+                                    phoneNumber={el.phoneNumber}
+                                    image={el.image}
+                                    />;
+                                })
+                            }
+                        </ul>
+                    </div>
+                );
+            }
+        });
+
+        ReactDOM.render(
+            <div>
+                <ContactList />
+            </div>,
+            document.getElementById('content')
+        );
+    </script>
+</body>
+
+</html>
