@@ -1,3 +1,7 @@
+.container {
+    width: 70%;
+    margin: auto;
+}
 .contacts {
     width: 300px;
     margin: 0 auto;
